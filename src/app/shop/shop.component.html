@@ -38,12 +38,12 @@
         </section>
         <section class="col-9">
             <div class="d-flex justify-content-between align-items-center pb-2">
-                <header>
-                    <span>
-                        Showing <strong>10</strong> of
-                        <strong>16</strong> Results
-                    </span>
-                </header>
+                <app-paging-header
+                    [totalCount]="totalCount"
+                    [pageSize]="this.shopParams.pageSize"
+                    [pageNumber]="this.shopParams.pageNumber"
+                ></app-paging-header>
+
                 <div class="form-inline mt=2">
                     <input
                         type="text"
