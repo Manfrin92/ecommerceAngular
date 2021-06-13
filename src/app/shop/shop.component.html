@@ -70,6 +70,8 @@
                     nextText="&rsaquo;"
                     firstText="&laquo;"
                     lastText="&raquo;"
+                    (pageChanged)="onPageChanged($event)"
+                    [itemsPerPage]="this.shopParams.pageSize"
                 >
                 </pagination>
             </div>
