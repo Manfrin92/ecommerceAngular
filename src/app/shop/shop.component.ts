@@ -3,80 +3,86 @@ import { IBrand } from '../shared/models/brand';
 import { IProduct } from '../shared/models/product';
 import { IType } from '../shared/models/productType';
 import { ShopService } from './shop.service';
+import { ShopParams } from '../shared/models/shopParams';
 
 @Component({
-  selector: 'app-shop',
-  templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss'],
+    selector: 'app-shop',
+    templateUrl: './shop.component.html',
+    styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
-  products: IProduct[];
-  brands: IBrand[];
-  types: IType[];
-  brandIdSelected = 0;
-  typeIdSelected = 0;
-  sortSelected = 'name';
-  sortOptions = [
-    { name: 'Alphabetical', value: 'name' },
-    { name: 'Price: Low to High', value: 'priceAsc' },
-    { name: 'Price: High to Low', value: 'priceDesc' },
-  ];
+    products: IProduct[];
+    brands: IBrand[];
+    types: IType[];
+    shopParams = new ShopParams();
+    totalCount: number;
 
-  constructor(private shopService: ShopService) {}
+    sortOptions = [
+        { name: 'Alphabetical', value: 'name' },
+        { name: 'Price: Low to High', value: 'priceAsc' },
+        { name: 'Price: High to Low', value: 'priceDesc' },
+    ];
 
-  ngOnInit() {
-    this.getProducts();
-    this.getBrands();
-    this.getTypes();
-  }
+    constructor(private shopService: ShopService) {}
 
-  getProducts() {
-    this.shopService
-      .getProducts(this.brandIdSelected, this.typeIdSelected, this.sortSelected)
-      .subscribe(
-        (response) => {
-          this.products = response?.data ? response.data : [];
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
+    ngOnInit() {
+        this.getProducts();
+        this.getBrands();
+        this.getTypes();
+    }
 
-  getBrands() {
-    this.shopService.getBrands().subscribe(
-      (response) => {
-        this.brands = [{ id: 0, name: 'All' }, ...response];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+    getProducts() {
+        this.shopService.getProducts(this.shopParams).subscribe(
+            (response) => {
+                this.products = response?.data ? response.data : [];
+                this.shopParams.pageNumber = response?.pageIndex
+                    ? response?.pageIndex
+                    : 0;
+                this.shopParams.pageSize = response?.pageSize
+                    ? response.pageSize
+                    : 0;
+                this.totalCount = response?.count ? response.count : 0;
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 
-  getTypes() {
-    this.shopService.getTypes().subscribe(
-      (response) => {
-        this.types = [{ id: 0, name: 'All' }, ...response];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+    getBrands() {
+        this.shopService.getBrands().subscribe(
+            (response) => {
+                this.brands = [{ id: 0, name: 'All' }, ...response];
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 
-  onBrandSelected(brandId: number) {
-    this.brandIdSelected = brandId;
-    this.getProducts();
-  }
+    getTypes() {
+        this.shopService.getTypes().subscribe(
+            (response) => {
+                this.types = [{ id: 0, name: 'All' }, ...response];
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 
-  onTypeSelected(typeId: number) {
-    this.typeIdSelected = typeId;
-    this.getProducts();
-  }
+    onBrandSelected(brandId: number) {
+        this.shopParams.brandId = brandId;
+        this.getProducts();
+    }
 
-  onSortSelected(sort: string) {
-    this.sortSelected = sort;
-    this.getProducts();
-  }
+    onTypeSelected(typeId: number) {
+        this.shopParams.typeId = typeId;
+        this.getProducts();
+    }
+
+    onSortSelected(sort: string) {
+        // this.sortSelected = sort;
+        this.getProducts();
+    }
 }
