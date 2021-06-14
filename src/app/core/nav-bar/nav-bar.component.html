@@ -18,11 +18,18 @@
         alt="Company Logo"
         style="max-height: 70px"
         routerLink="/"
+        class="logo"
     />
     <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger">
-        <a class="p-2 text-dark" [routerLink]="['/']">Home</a>
-        <a class="p-2 text-dark" routerLink="/shop">Shop</a>
-        <a class="p-2 text-dark" routerLink="">Contact</a>
+        <a
+            class="p-2"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+        >
+        <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
+        <a class="p-2" routerLink="" routerLinkActive="active">Contact</a>
     </nav>
     <div class="d-flex align-items-center">
         <a class="position-relative">
