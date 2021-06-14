@@ -4,7 +4,7 @@ import { ShopComponent } from './shop.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { RouterModule } from '@angular/router';
+import { ShopRoutingModule } from './shop-routing.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
         ProductItemComponent,
         ProductDetailsComponent,
     ],
-    imports: [CommonModule, SharedModule, RouterModule],
-    exports: [ShopComponent],
+    imports: [CommonModule, SharedModule, ShopRoutingModule],
 })
 export class ShopModule {}
