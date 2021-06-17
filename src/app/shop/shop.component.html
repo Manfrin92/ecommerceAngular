@@ -1,8 +1,8 @@
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row">
         <section class="col-3">
             <ng-container *ngIf="types && brands">
-                <h5 class="text-warning ml-3">Sort</h5>
+                <h5 class="text-warning ml-3 mt-4">Sort</h5>
                 <select
                     name=""
                     class="custom-select mb-3"
@@ -39,14 +39,6 @@
                         {{ type.name }}
                     </li>
                 </ul>
-                <div class="d-flex justify-content-center">
-                    <app-pager
-                        [pageSize]="shopParams.pageSize"
-                        [totalCount]="totalCount"
-                        (pageChanged)="onPageChanged($event)"
-                    >
-                    </app-pager>
-                </div>
             </ng-container>
         </section>
         <section class="col-9">
@@ -57,7 +49,7 @@
                     [pageNumber]="this.shopParams.pageNumber"
                 ></app-paging-header>
 
-                <div class="form-inline mt=2" *ngIf="products">
+                <div class="form-inline" *ngIf="products">
                     <input
                         (keyup.enter)="onSearch()"
                         type="text"
@@ -84,6 +76,14 @@
                 <div class="col-4 mb-4" *ngFor="let product of products">
                     <app-product-item [product]="product"></app-product-item>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center" *ngIf="products">
+                <app-pager
+                    [pageSize]="shopParams.pageSize"
+                    [totalCount]="totalCount"
+                    (pageChanged)="onPageChanged($event)"
+                >
+                </app-pager>
             </div>
         </section>
     </div>
