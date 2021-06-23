@@ -11,7 +11,8 @@ import { IProduct } from '../shared/models/product';
 })
 export class BasketService {
     baseUrl = environment.apiUrl;
-    private basketSource = new BehaviorSubject<IBasket>({} as IBasket);
+    // @ts-ignore
+    private basketSource = new BehaviorSubject<IBasket>(null);
     basket$ = this.basketSource.asObservable();
 
     constructor(private http: HttpClient) {}
@@ -28,6 +29,7 @@ export class BasketService {
         return this.http.post(this.baseUrl + 'basket', basket).subscribe(
             (response: any) => {
                 this.basketSource.next(response);
+                console.log(response);
             },
             (error) => {
                 console.log(error);
@@ -44,7 +46,10 @@ export class BasketService {
             item,
             quantity
         );
-        const basket = this.getCurrentBasketValue() ?? this.createBasket();
+        let basket = this.getCurrentBasketValue();
+        if (basket === null) {
+            basket = this.createBasket();
+        }
         basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
         this.setBasket(basket);
     }
@@ -66,6 +71,7 @@ export class BasketService {
 
     private createBasket(): IBasket {
         const basket = new Basket();
+        console.log('create: ', basket);
         localStorage.setItem('basket_id', basket.id);
         return basket;
     }
