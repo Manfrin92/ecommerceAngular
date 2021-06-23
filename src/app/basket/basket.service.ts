@@ -18,9 +18,10 @@ export class BasketService {
     constructor(private http: HttpClient) {}
 
     getBasket(id: string) {
-        return this.http.get(this.baseUrl + 'basket?id=' + id).pipe(
+        return this.http.get(this.baseUrl + 'basket?basketId=' + id).pipe(
             map((basket: any) => {
                 this.basketSource.next(basket);
+                console.log(this.getCurrentBasketValue());
             })
         );
     }
@@ -71,7 +72,6 @@ export class BasketService {
 
     private createBasket(): IBasket {
         const basket = new Basket();
-        console.log('create: ', basket);
         localStorage.setItem('basket_id', basket.id);
         return basket;
     }
