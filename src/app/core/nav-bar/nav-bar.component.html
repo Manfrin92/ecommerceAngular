@@ -1,17 +1,5 @@
 <div
-  class="
-    d-flex
-    flex-column flex-md-row
-    align-items-center
-    justify-content-between
-    p-3
-    px-md-4
-    mb-3
-    bg-white
-    border-bottom
-    box-shadow
-    fixed-top
-  "
+  class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom box-shadow fixed-top"
 >
   <img
     src="/assets/logo.png"
@@ -34,16 +22,21 @@
   <div class="d-flex align-items-center">
     <a routerLink="/basket" class="position-relative">
       <i class="fa fa-shopping-cart fa-2x mr-5 text-dark">
-        <div *ngIf="basket$ | async as basket" class="cart-no">
-          {{ basket.items.length }}
+        <div *ngIf="basket$ | async" class="cart-no">
+          {{ (basket$ | async)?.items?.length }}
         </div>
       </i>
     </a>
-    <a routerLink="/account/login" class="btn btn-outline-secondary mr-2"
-      >Login</a
-    >
-    <a routerLink="/account/register" class="btn btn-outline-secondary mr-3"
-      >Sign up</a
-    >
+    <ng-container *ngIf="(currentUser$ | async) === null">
+      <a routerLink="/account/login" class="btn btn-outline-secondary mr-2"
+        >Login</a
+      >
+      <a routerLink="/account/register" class="btn btn-outline-secondary mr-3"
+        >Sign up</a
+      >
+    </ng-container>
+    <ng-container *ngIf="currentUser$ | async">
+      <a href="#">Welcome {{ (currentUser$ | async)?.displayName }}</a>
+    </ng-container>
   </div>
 </div>
