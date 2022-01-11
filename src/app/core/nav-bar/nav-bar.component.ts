@@ -32,4 +32,8 @@ export class NavBarComponent implements OnInit {
       console.log('brands from nav: ', brands);
     });
   }
+
+  logout() {
+    this.accountService.logout();
+  }
 }
