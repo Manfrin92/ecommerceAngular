@@ -21,11 +21,13 @@
         [type]="'password'"
       ></app-text-input>
 
-      <button
-        [disabled]="registerForm.invalid"
-        class="btn btn-lg btn-primary btn-block"
-        type="submit"
-      >
+      <ul class="text-danger list-unstyled" *ngIf="errors">
+        <li *ngFor="let error of errors">
+          {{ error }}
+        </li>
+      </ul>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
         Register
       </button>
     </form>
