@@ -29,7 +29,6 @@ export class NavBarComponent implements OnInit {
 
   getBrands() {
     this.shopService.getBrandsFromMemory().subscribe((brands) => {
-      console.log('brands from nav: ', brands);
     });
   }
 

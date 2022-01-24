@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
 
   getBrands() {
     this.shopService.getBrandsFromMemory().subscribe((brands) => {
-      console.log('brands from home: ', brands);
     });
   }
 }
