@@ -11,3 +11,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # ng g s checkout --flat --skip-tests
 
 # ng g c checkout --flat --skip-tests
+
+Add angular cdk
+
+ng add @angular/cdk
+
+Login
+
+a@a.com
+#CXt63'48

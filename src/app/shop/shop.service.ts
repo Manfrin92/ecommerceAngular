@@ -12,7 +12,7 @@ import { ReplaySubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ShopService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = 'http://localhost:5001/api/';
   // sharing the same request
   private readonly allBrands: ReplaySubject<IBrand[]> = new ReplaySubject(1);
 
